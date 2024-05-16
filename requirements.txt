@@ -4,3 +4,4 @@ fastcore
 fastai
 pandas
 torch
+tensorboard
