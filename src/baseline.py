@@ -13,9 +13,10 @@ def get_y(item):
     return item['labels']
 
 def fine_tune(dls, model, epochs=4, export_path=None, tb_logs_path=None):
+    print(f"Finetuning {export_path} for {epochs} epochs")
     learn = vision_learner(dls, model, metrics=accuracy_multi, cbs=[TensorBoardCallback(log_dir=tb_logs_path)])
     if torch.cuda.is_available():
-        learn.model.to('cuda')
+        learn.model.to('cuda:0')
     elif torch.backends.mps.is_available():
         learn.model.to('mps')
     learn.fine_tune(epochs)
